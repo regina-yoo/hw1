@@ -111,14 +111,82 @@
 .headers off
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
--- TODO!
+DROP TABLE IF EXISTS movie;
+DROP TABLE IF EXISTS studio;
+DROP TABLE IF EXISTS actor;
+DROP TABLE IF EXISTS role;
+
 
 -- Create new tables, according to your domain model
--- TODO!
+CREATE TABLE studio (
+    studio_id INTEGER PRIMARY KEY,
+    name TEXT
+);
+
+CREATE TABLE movie (
+    movie_id INTEGER PRIMARY KEY,
+    title TEXT,
+    year INTEGER,
+    rating TEXT,
+    studio_id INTEGER,
+    FOREIGN KEY (studio_id) REFERENCES studio(studio_id)
+);
+
+CREATE TABLE actor (
+    actor_id INTEGER PRIMARY KEY,
+    name TEXT
+);
+
+CREATE TABLE role (
+    role_id INTEGER PRIMARY KEY,
+    actor_id INTEGER,
+    movie_id INTEGER,
+    character_name TEXT,
+    FOREIGN KEY (actor_id) REFERENCES actor(actor_id),
+    FOREIGN KEY (movie_id) REFERENCES movie(movie_id)
+);
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
--- TODO!
+
+INSERT INTO studio (studio_id, name) VALUES (1, "Warner Bros.");
+
+INSERT INTO movie (movie_id, title, year, rating, studio_id) VALUES
+(1, "Batman Begins", 2005, "PG-13", 1),
+(2, "The Dark Knight", 2008, "PG-13", 1),
+(3, "The Dark Knight Rises", 2012, "PG-13", 1);
+
+INSERT INTO actor (actor_id, name) VALUES
+(1, "Christian Bale"),
+(2, "Michael Caine"),
+(3, "Liam Neeson"),
+(4, "Katie Holmes"),
+(5, "Gary Oldman"),
+(6, "Heath Ledger"),
+(7, "Aaron Eckhart"),
+(8, "Maggie Gyllenhaal"),
+(9, "Tom Hardy"),
+(10, "Joseph Gordon Levitt"),
+(11, "Anne Hathaway");
+
+INSERT INTO role (actor_id, movie_id, character_name) VALUES
+(1, 1, "Bruce Wayne"),
+(2, 1, "Alfred"),
+(3, 1, "Ra's al Ghul"),
+(4, 1, "Rachel Dawes"),
+(5, 1, "Commissioner Gordon"),
+(1, 2, "Bruce Wayne"),
+(6, 2, "Joker"),
+(7, 2, "Harvey Dent"),
+(2, 2, "Alfred"),
+(8, 2, "Rachel Dawes"),
+(5, 2, "Commissioner Gordon"),
+(1, 3, "Bruce Wayne"),
+(5, 3, "Commissioner Gordon"),
+(9, 3, "Bane"),
+(10, 3, "John Blake"),
+(11, 3, "Selina Kyle");
+
 
 -- Prints a header for the movies output
 .print "Movies"
