@@ -119,12 +119,12 @@ DROP TABLE IF EXISTS role;
 
 -- Create new tables, according to your domain model
 CREATE TABLE studio (
-    studio_id INTEGER PRIMARY KEY,
+    studio_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT
 );
 
 CREATE TABLE movie (
-    movie_id INTEGER PRIMARY KEY,
+    movie_id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
     year INTEGER,
     rating TEXT,
@@ -132,12 +132,12 @@ CREATE TABLE movie (
 );
 
 CREATE TABLE actor (
-    actor_id INTEGER PRIMARY KEY,
+    actor_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT
 );
 
 CREATE TABLE role (
-    role_id INTEGER PRIMARY KEY,
+    role_id INTEGER PRIMARY KEY AUTOINCREMENT,
     actor_id INTEGER,
     movie_id INTEGER,
     character_name TEXT
