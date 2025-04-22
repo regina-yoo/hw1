@@ -128,8 +128,7 @@ CREATE TABLE movie (
     title TEXT,
     year INTEGER,
     rating TEXT,
-    studio_id INTEGER,
-    FOREIGN KEY (studio_id) REFERENCES studio(studio_id)
+    studio_id INTEGER
 );
 
 CREATE TABLE actor (
@@ -141,9 +140,7 @@ CREATE TABLE role (
     role_id INTEGER PRIMARY KEY,
     actor_id INTEGER,
     movie_id INTEGER,
-    character_name TEXT,
-    FOREIGN KEY (actor_id) REFERENCES actor(actor_id),
-    FOREIGN KEY (movie_id) REFERENCES movie(movie_id)
+    character_name TEXT
 );
 
 -- Insert data into your database that reflects the sample data shown above
@@ -194,7 +191,9 @@ INSERT INTO role (actor_id, movie_id, character_name) VALUES
 .print ""
 
 -- The SQL statement for the movies output
--- TODO!
+SELECT movie.title, movie.year, movie.rating, studio.name
+FROM movie
+JOIN studio ON movie.studio_id = studio.studio_id;
 
 -- Prints a header for the cast output
 .print ""
@@ -204,4 +203,8 @@ INSERT INTO role (actor_id, movie_id, character_name) VALUES
 
 
 -- The SQL statement for the cast output
--- TODO!
+SELECT movie.title, actor.name, role.character_name
+FROM role
+JOIN actor ON role.actor_id = actor.actor_id
+JOIN movie ON role.movie_id = movie.movie_id;
+
